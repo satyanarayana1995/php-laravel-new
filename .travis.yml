@@ -1,7 +1,21 @@
 language: php
+
 php:
-  - "7.4.3"
+  - 7.4.3
+
 before_script:
-  - curl -sSfL -o ~/.phpenv/versions/hhvm/bin/phpunit https://phar.phpunit.de/phpunit-5.7.phar
-before_script:
-  - composer install
+  - cp .env.travis .env
+  - composer update
+  - composer install --prefer-source --no-interaction --dev
+  - php artisan key:generate
+  - php artisan jwt:secret
+  - php artisan migrate
+
+
+services:
+  - mysql
+
+notifications:
+  email: false
+
+
