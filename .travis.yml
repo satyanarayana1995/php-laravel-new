@@ -14,8 +14,8 @@ cache:
 before_script:
   - cp .env.example .env
   - composer self-update
-  - composer install --no-interaction
-  - php artisan migrate --no-interaction -vvv
+  - composer install 
+  - docker build -t laravelapp .
 
 script:
   - vendor/bin/phpunit
